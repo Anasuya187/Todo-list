@@ -42,3 +42,34 @@ const handleItem = function(itemName){
         }
     })
 }
+const removeItem = function(item){
+    console.log(item);
+    const removeIndex = (todoItems.indexOf(item));
+    console.log(removeIndex);
+    todoItems.splice(removeIndex, 1);
+}
+
+const getList = function(todoItems){
+    itemList.innerHTML = '';
+
+        todoItems.forEach(function(item){
+            itemList.insertAdjacentHTML('beforeend', `<div class="item my-3"><h5 class="item-name text-capitalize">${item}</h5><div class="item-icons"><a href="#" class="complete-item mx-2 item-icon"><i class="far fa-check-circle"></i></a><a href="#" class="edit-item mx-2 item-icon"><i class="far fa-edit"></i></a><a href="#" class="delete-item item-icon"><i class="far fa-times-circle"></i></a></div></div>` );
+
+            handleItem(item);
+        });
+}
+
+const getLocalStorage = function(){
+
+    const todoStorage = localStorage.getItem('todoItems');
+    if (todoStorage === 'undefined' || todoStorage === null){
+        todoItems = [];
+    } else {
+        todoItems = JSON.parse(todoStorage);
+        getList(todoItems);
+    }
+}
+
+const setLocalStorage = function(todoItems){
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+}

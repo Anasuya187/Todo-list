@@ -73,3 +73,36 @@ const getLocalStorage = function(){
 const setLocalStorage = function(todoItems){
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
 }
+// get local storage from page
+getLocalStorage();
+
+//add an item to the List, including to local storage
+form.addEventListener('submit', function(e){ 
+    e.preventDefault();
+    const itemName = itemInput.value;
+    
+    if (itemName.length === 0){
+        feedback.innerHTML = 'Please Enter Valid Value';
+        feedback.classList.add('showItem', 'alert-danger');
+        setTimeout(
+            function(){
+                feedback.classList.remove('showItem');
+                }, 3000);
+    } else {
+        todoItems.push(itemName);
+        setLocalStorage(todoItems);
+        getList(todoItems);
+        //add event listeners to icons;
+        //handleItem(itemName);
+    }
+    
+    itemInput.value = '';
+
+    });
+
+    //clear all items from the list
+clearButton.addEventListener('click', function(){
+    todoItems = [];
+    localStorage.clear();
+    getList(todoItems);
+})
